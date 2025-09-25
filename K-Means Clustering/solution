@@ -1,0 +1,36 @@
+import numpy as np
+def k_means_clustering(points: list[tuple[float, float]], k: int, initial_centroids: list[tuple[float, float]], max_iterations: int) -> list[tuple[float, float]]:
+	# Your code here
+    def dis (data,cent):
+        temp=[]
+        for l in data:
+            sum0=0
+            for m,n in zip(list(l),list(cent)):
+                sum0+=(m-n)**2
+            temp.append(round(np.sqrt(sum0)))
+        return temp
+    
+
+
+    for i in range (0,max_iterations):
+        sumation=[]
+        flag=[0 for f in points]
+        for add in range (0,k):
+            sumation.append([0 for camp in points[0]])
+        arr=[]
+        for j in range (0,k):
+            arr.append(dis(points,initial_centroids[j]))
+        for j1 in range (0,len(points)):
+            val=0
+            for j2 in range (0,k):
+                if arr[j2][j1]>val:
+                    flag[j1]=j2
+                    val=arr[j2][j1]
+        for j3 in range (0,len(points)):
+            # sumation[flag[j3]][0]+=points[j3][0]/flag.count(flag[j3])
+            # sumation[flag[j3]][1]+=points[j3][1]/flag.count(flag[j3])
+            for j4 in range (0,len(points[0])):
+                sumation[flag[j3]][j4]+=points[j3][j4]/flag.count(flag[j3])
+        initial_centroids=sumation
+
+	return initial_centroids
